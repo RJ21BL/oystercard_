@@ -17,8 +17,8 @@ describe Oystercard do
       end
 
       it 'raises an error when maximum balance is exceeded' do
-        amount_capacity = Oystercard::MAX_CARD_BALANCE
-        subject.top_up(amount_capacity)
+        amount = Oystercard::MAX_CARD_BALANCE
+        subject.top_up(amount)
         error_message = 'Maximum balance exceeded'
         expect { subject.top_up 1 }.to raise_error error_message
       end
@@ -30,6 +30,13 @@ describe Oystercard do
       it 'balance changes when money is deducted from card' do
         expect { subject.deduct 1 }.to change { subject.balance }.by(-1)
       end
+
+      # it 'raises error if below minimum balance' do
+      #   amount = Oystercard::MIN_CARD_BALANCE
+      #   subject.deduct(amount)
+      #   error_message = 'insufficient funds'
+      #   expect { subject.deduct(100) }.to raise_error error_message
+      # end
     end
   end
 
@@ -46,6 +53,18 @@ describe Oystercard do
         subject.touch_in
         subject.touch_out
         expect(subject.in_journey).to eq false
+      end
+    end
+  end
+
+  context 'deduct' do
+    describe '#deduct' do
+      card = Oystercard.new
+      it 'raises error if below minimum balance' do
+        card.top_up(89)
+        # card.deduct(100)
+        error_message = 'insufficient funds'
+        expect { card.deduct(100) }.to raise_error error_message
       end
     end
   end
