@@ -58,13 +58,13 @@ describe Oystercard do
   end
 
   context 'deduct' do
-    describe '#deduct' do
-      card = Oystercard.new
+    describe Oystercard do
       it 'raises error if below minimum balance' do
-        card.top_up(89)
-        # card.deduct(100)
+        subject = Oystercard.new
+        subject.top_up(80)
+        # subject.deduct(100)
         error_message = 'insufficient funds'
-        expect { card.deduct(100) }.to raise_error error_message
+        expect {subject.deduct(89)}.to raise_error "insufficient funds"
       end
     end
   end
