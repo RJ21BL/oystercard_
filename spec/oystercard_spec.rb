@@ -23,23 +23,15 @@ describe Oystercard do
         expect { subject.top_up 1 }.to raise_error error_message
       end
     end
-
-    describe '#deduct' do
-      it { is_expected.to respond_to(:deduct).with(1).argument }
-
-      it 'balance changes when money is deducted from card' do
-        expect { subject.deduct 1 }.to change { subject.balance }.by(-1)
-      end
-
-      # it 'raises error if below minimum balance' do
-      #   amount = Oystercard::MIN_CARD_BALANCE
-      #   subject.deduct(amount)
-      #   error_message = 'insufficient funds'
-      #   expect { subject.deduct 10 }.to change { subject.balance }.by(-10)
-      #   expect { subject.deduct 10 }.to raise_error error_message
-      # end
-    end
   end
+
+    # describe '#deduct' do
+    #   it { is_expected.to respond_to(:deduct).with(1).argument }
+
+    #   it 'balance changes when money is deducted from card' do
+    #     expect { subject.deduct 1 }.to change { subject.balance }.by(-1)
+    #   end
+    # end
 
   context 'card can touch in and out' do
     describe '#in_journey' do
@@ -66,18 +58,13 @@ describe Oystercard do
         subject.touch_in
         subject.touch_out
         expect(subject).not_to be_in_journey
-
       end
+
+      # it 'deduct from balance on journey completion' do
+      #   subject.top_up(Oystercard::MAX_CARD_BALANCE)
+      #   subject.touch_in
+      #   expect { subject.touch_out }.to change{ subject.balance }.by -Oystercard::MIN_FARE
+      # end
     end
   end
-
-  #   describe '#deduct' do
-  #     card = Oystercard.new
-  #     it 'raises error if below minimum balance' do
-  #       card.top_up(89)
-  #       # card.deduct(100)
-  #       error_message = 'insufficient funds'
-  #       expect { card.deduct(100) }.to raise_error error_message
-  #     end
-  #   end
 end
