@@ -4,7 +4,7 @@ class Oystercard
   attr_reader :balance, :in_journey
 
   MAX_CARD_BALANCE = 90
-  MIN_CARD_BALANCE = 0
+  MIN_CARD_BALANCE = 1
 
   def initialize
     @balance = 0
@@ -19,25 +19,23 @@ class Oystercard
   end
 
   def deduct(amount)
-    # puts amount
-    # puts balance
-    error_message = 'insufficient funds'
-    raise error_message #if amount - balance < MIN_CARD_BALANCE
+    # error_message = 'insufficient funds'
+    # raise error_message if amount - balance < MIN_CARD_BALANCE
 
-    # @balance -= amount
+    @balance -= amount
   end
 
   def touch_in
-    error_message = 'invalid command'
-    raise error_message if in_journey == true
-
+    error_message = 'Insufficient balance to touch in'
+    raise error_message if balance < MIN_CARD_BALANCE
     @in_journey = true
   end
 
   def touch_out
-    error_message = 'invalid command'
-    raise error_message if in_journey == false
-
     @in_journey = false
+  end
+
+  def in_journey?
+    @in_journey
   end
 end
