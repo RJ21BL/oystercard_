@@ -2,6 +2,8 @@
 
 require 'Oystercard'
 
+require 'Oystercard'
+
 describe Oystercard do
   it 'has a balance of zero' do
     expect(subject.balance).to eq(0)
@@ -32,40 +34,18 @@ describe Oystercard do
     end
     describe '#touch in' do
       it 'touches user in and puts them in journey' do
-<<<<<<< HEAD
         subject.top_up(Oystercard::MAXIMUM_CARD_BALANCE)
         subject.touch_in
         expect(subject).to be_in_journey
-=======
-        subject.top_up(Oystercard::MAX_CARD_BALANCE)
-        subject.touch_in(Oystercard::entry_station)
-          expect(subject).to be_in_journey
->>>>>>> 496e5d9b465eaedef7ae4a08fb4cfd1611c6cade
       end
       it 'will not touch in if below minimum balance' do
-<<<<<<< HEAD
-        expect{ subject.touch_in }.to raise_error 'Insufficient balance'
-=======
-        expect{ subject.touch_in(Oystercard::entry_station) }.to raise_error 'Insufficient balance to touch in'
->>>>>>> 496e5d9b465eaedef7ae4a08fb4cfd1611c6cade
+        expect { subject.touch_in }.to raise_error 'Insufficient balance'
       end
-
-      # it 'touching in changes the default station' do
-      # #   subject.touch_in(liverpoolstreet)
-      # #   expect(Oystercard::entry_station).to eq liverpoolstreet
-      # # end
-
     end
     describe '#touch out' do
       it 'touches user out and puts them out of journey' do
-<<<<<<< HEAD
         subject.top_up(Oystercard::MAXIMUM_CARD_BALANCE)
         subject.touch_in
-=======
-        subject.top_up(Oystercard::MAX_CARD_BALANCE)
-        euston = Oystercard::entry_station
-        subject.touch_in(euston)
->>>>>>> 496e5d9b465eaedef7ae4a08fb4cfd1611c6cade
         subject.touch_out
         expect(subject).not_to be_in_journey
       end

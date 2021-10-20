@@ -19,17 +19,10 @@ class Oystercard
     @balance += amount
   end
 
-<<<<<<< HEAD
   def touch_in
     error_message = 'Insufficient balance'
     raise error_message if balance < MINIMUM_CARD_BALANCE
 
-=======
-  def touch_in(station)
-    @entry_station = station
-    error_message = 'Insufficient balance to touch in'
-    raise error_message if balance < MIN_FARE
->>>>>>> 496e5d9b465eaedef7ae4a08fb4cfd1611c6cade
     @in_journey = true
   end
 
