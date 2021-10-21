@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 require 'Oystercard'
-
-require 'Oystercard'
+require 'Station'
 
 describe Oystercard do
   it 'has a balance of zero' do
@@ -35,19 +34,33 @@ describe Oystercard do
     describe '#touch in' do
       it 'touches user in and puts them in journey' do
         subject.top_up(Oystercard::MAXIMUM_CARD_BALANCE)
-        subject.touch_in
+        station = Station.new
+        subject.touch_in(station)
         expect(subject).to be_in_journey
       end
       it 'will not touch in if below minimum balance' do
-        expect { subject.touch_in }.to raise_error 'Insufficient balance'
+        station = Station.new
+        expect { subject.touch_in(station) }.to raise_error 'Insufficient balance'
       end
     end
     describe '#touch out' do
       it 'touches user out and puts them out of journey' do
         subject.top_up(Oystercard::MAXIMUM_CARD_BALANCE)
-        subject.touch_in
+        station = Station.new
+        subject.touch_in(station)
         subject.touch_out
         expect(subject).not_to be_in_journey
+      end
+    end
+  end
+
+  context 'station' do
+    describe 'station' do
+      let(:station) { double 'station', new_station: 'new_street' }
+      it 'stores the entry station' do
+        card = Oystercard.new(station)
+        card.top_up(Oystercard::MAXIMUM_CARD_BALANCE)
+        expect(card.touch_in(station)).to eq station.new_station
       end
     end
   end
